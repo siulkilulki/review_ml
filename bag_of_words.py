@@ -2,8 +2,6 @@ import pandas as pd
 import numpy as np
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.gaussian_process import GaussianProcessClassifier
-from sklearn.gaussian_process.kernels import RBF
 from sklearn.metrics import mean_squared_error
 from sklearn.linear_model import LogisticRegression
 from sklearn.feature_extraction.text import TfidfTransformer
@@ -71,11 +69,10 @@ test_data_features = tf_transformer.transform(test_data_features_counts)
 test_data_features = test_data_features.toarray()
 
 C = 1.0
-#kernel = 1.0 * RBF([1.0, 1.0])
 classifiers = {'L1_logistic': LogisticRegression(C=C, penalty='l1'),
                'L2_logistic_(OvR)': LogisticRegression(C=C, penalty='l2'),
+                'rbf_SVC': SVC(kernel='rbf', C=C),
                'Linear_SVC': SVC(kernel='linear', C=C),
-               #'GPC': GaussianProcessClassifier(kernel),
                'Random_Forest': RandomForestClassifier(n_estimators=100),
                 'L2_logistic_(Multinomial)': LogisticRegression(
                 C=C, solver='lbfgs', multi_class='multinomial')
